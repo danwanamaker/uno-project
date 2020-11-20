@@ -2,5 +2,34 @@ Flowchart for the process of the program
 - generate deck
 - generate player hands
 
+Setup steps:
+- How many players?
+- - while loop, enter player name or type 'all done'
+- construct objects for players
+- - these should be in a list I guess?
+- - - [the object containing P1 and their hand, the next object, etc]
+
+Gameplay
+
+
+Incrementer (run at end of turn):
+if play is normal, non-reversed:
+    if token == len(players):
+        token = 0
+    else:
+        token += 1
+elif play is reversed:
+    if token == 0:
+        token == len(players)
+    else:
+        token -= 1
+if we are skipping the next player:
+    display a message saying you got skipped
+    set skip state to false
+    run the above one more time
+
 ### Further down the road steps
 - [ ] A bot to play as p2
+- [ ] House rules?
+- - continually draw until you can play || draw once and pass?
+- - continually play until you can't anymore || play once and pass?
