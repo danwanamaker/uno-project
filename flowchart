@@ -8,6 +8,8 @@ Setup steps:
 - construct objects for players
 - - these should be in a list I guess?
 - - - [the object containing P1 and their hand, the next object, etc]
+- draw first card
+- - if wild card: continue
 
 Gameplay
 

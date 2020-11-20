@@ -18,7 +18,7 @@ class Player:
 
 
 def setup_players():  # gets names of players and returns them in a list
-    players = []
+    players_list = []
     num_players = 1
     while True:
         print('Enter player {}\'s name or type "done" if all players are entered: ' \
@@ -27,6 +27,6 @@ def setup_players():  # gets names of players and returns them in a list
         if player_name == 'done':
             break
         else:
-            players.append(Player(num_players, player_name))
+            players_list.append(Player(num_players, player_name))
         num_players += 1
-    return players
+    return players_list

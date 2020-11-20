@@ -30,5 +30,3 @@ if __name__ == '__main__':
     print(len(premade_deck))
     print(random.random())
     print(choose_card())
-
-
