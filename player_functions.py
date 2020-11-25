@@ -16,6 +16,20 @@ class Player:
         output_hand.append(df.choose_card())
         self.hand = output_hand
 
+    def display_hand(self):
+        readout = 'You\'re holding: '
+        count = 2
+        for card in self.hand:
+            english = hf.decode(card)
+            readout += english
+            if count < len(self.hand):
+                readout += ', '
+            elif count == len(self.hand):
+                readout += ', and '
+            count += 1
+        readout += '.'
+        return readout
+
 
 def setup_players():  # gets names of players and returns them in a list
     players_list = []

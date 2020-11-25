@@ -1,5 +1,6 @@
 import random
 
+
 colors = ['r', 'y', 'g', 'b']
 numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 's', 'r', 'd']  # s = skip, r = reverse, d = draw 2
 starting_deck = ['r0', 'y0', 'g0', 'b0', 'ww', 'ww', 'ww', 'ww', 'wf', 'wf', 'wf', 'wf']
