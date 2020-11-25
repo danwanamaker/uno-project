@@ -13,9 +13,11 @@ class Player:
     def __str__(self):
         return 'Player ' + str(self.number) + ': ' + self.name + ' holding ' + str(len(self.hand)) + ' cards'
 
-    def draw_card(self):
+    def draw_card(self, read=False):
         output_hand = self.hand.copy()
         self.new_card = df.choose_card()
+        if read:
+            print('You drew a {}.'.format(hf.decode(self.new_card)))
         output_hand.append(self.new_card)
         output_hand.sort()
         self.new_card = hf.decode(self.new_card)
@@ -52,11 +54,23 @@ class Player:
         self.hand.sort()
         print('You\'re now holding: ' + self.display_hand() + '.')
 
+    def holding(self, now=False):
+        now_string = ''
+        if now:
+            now_string = 'now '
+        print('You\'re {}holding: {}.'.format(now_string, self.display_hand()))
+
     def list_hand(self):
         i = 1
         for card in self.hand:
             print('  {}. {}'.format(i, hf.decode(card)))
             i += 1
+
+    def play_card(self):
+        print('Choose a card (or enter 0 to go back):')
+        self.list_hand()
+        chosen_index = int(input('--> ')) - 1
+        return chosen_index
 
 
 def setup_players():  # Gets names of players and returns them in a list.

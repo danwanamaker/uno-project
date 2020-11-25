@@ -78,11 +78,17 @@ def read_last(card, wild):
         print('Last card played was a {} (play {}).'.format(decode(card), decode_color(wild)))
 
 
-def admonish(card1, card2, wild):
-    if wild == '':
-        print('You can\'t play a {} on a {}!'.format(card1, card2))
+def admonish(card1, card2):
+    color = ''
+    if card2[1] == 'f' or card2[1] == 'w':
+        color = decode_color(card2)
+    card1_eng = decode(card1)
+    card2_eng = decode(card2)
+    if color != '':
+        print('You can\'t play a {} on a {} Wild card!'.format(card1_eng, color))
     else:
-        print('You can\'t play a {} on a {} Wild card!'.format(card1, decode_color(wild)))
+        print('You can\'t play a {} on a {}!'.format(card1_eng, card2_eng))
+
 
 
 print(is_legal('ww', 'y3'))
