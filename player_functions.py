@@ -7,17 +7,21 @@ class Player:
         self.name = player_name
         self.number = int(order)
         self.hand = hf.construct_hand()
+        self.new_card = ''
 
     def __str__(self):
         return 'Player ' + str(self.number) + ': ' + self.name + ' holding ' + str(len(self.hand)) + ' cards'
 
     def draw_card(self):
         output_hand = self.hand.copy()
-        output_hand.append(df.choose_card())
+        self.new_card = df.choose_card()
+        output_hand.append(self.new_card)
+        output_hand.sort()
+        self.new_card = hf.decode(self.new_card)
         self.hand = output_hand
 
     def display_hand(self):
-        readout = 'You\'re holding: '
+        readout = ''
         count = 2
         for card in self.hand:
             english = hf.decode(card)
@@ -27,11 +31,34 @@ class Player:
             elif count == len(self.hand):
                 readout += ', and '
             count += 1
-        readout += '.'
         return readout
 
+    def draw_two(self):
+        new_cards = []
+        for i in range(2):
+            new_cards.append(df.choose_card())
+        print('You drew: {} and {}.'.format(hf.decode(new_cards[0]), hf.decode(new_cards[1])))
+        self.hand.extend(new_cards)
+        self.hand.sort()
+        print('You\'re now holding: ' + self.display_hand() + '.')
 
-def setup_players():  # gets names of players and returns them in a list
+    def draw_four(self):
+        new_cards = []
+        for i in range(4):
+            new_cards.append(df.choose_card())
+        print('You drew: ' + hf.readout(new_cards))
+        self.hand.extend(new_cards)
+        self.hand.sort()
+        print('You\'re now holding: ' + self.display_hand() + '.')
+
+    def list_hand(self):
+        i = 1
+        for card in self.hand:
+            print('  {}. {}'.format(i, hf.decode(card)))
+            i += 1
+
+
+def setup_players():  # Gets names of players and returns them in a list.
     players_list = []
     num_players = 1
     while True:
