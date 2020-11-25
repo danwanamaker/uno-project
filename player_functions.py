@@ -8,6 +8,7 @@ class Player:
         self.number = int(order)
         self.hand = hf.construct_hand()
         self.new_card = ''
+        self.uno = False
 
     def __str__(self):
         return 'Player ' + str(self.number) + ': ' + self.name + ' holding ' + str(len(self.hand)) + ' cards'
@@ -37,7 +38,7 @@ class Player:
         new_cards = []
         for i in range(2):
             new_cards.append(df.choose_card())
-        print('You drew: {} and {}.'.format(hf.decode(new_cards[0]), hf.decode(new_cards[1])))
+        print('Draw 2! You drew: {} and {}.'.format(hf.decode(new_cards[0]), hf.decode(new_cards[1])))
         self.hand.extend(new_cards)
         self.hand.sort()
         print('You\'re now holding: ' + self.display_hand() + '.')
@@ -46,7 +47,7 @@ class Player:
         new_cards = []
         for i in range(4):
             new_cards.append(df.choose_card())
-        print('You drew: ' + hf.readout(new_cards))
+        print('Draw 4! You drew: ' + hf.readout(new_cards))
         self.hand.extend(new_cards)
         self.hand.sort()
         print('You\'re now holding: ' + self.display_hand() + '.')

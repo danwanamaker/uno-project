@@ -9,9 +9,8 @@ def construct_hand():
     return result_hand
 
 
-def decode(card):
+def decode_color(card):
     color = ''
-    number = ''
     if card[0] == 'r':  # Generate the first part of the English name of the card.
         color = 'Red'
     elif card[0] == 'y':
@@ -20,33 +19,45 @@ def decode(card):
         color = 'Green'
     elif card[0] == 'b':
         color = 'Blue'
+    return color
+
+
+def decode(card):
+    color = decode_color(card)
+    decoded = ''
     if card[1] == 'r':  # Generate the second part.
-        number = ' Reverse'  # Extra spaces are so we can concatenate without Wild coming out as 'Wild '.
+        decoded = color + ' Reverse'
     elif card[1] == 'd':
-        number = ' Draw 2'
+        decoded = color + ' Draw 2'
     elif card[1] == 's':
-        number = ' Skip'
+        decoded = color + ' Skip'
     elif card[1] == 'w':
-        color, number = 'Wild', ''
+        if color == '':
+            decoded = 'Wild'
+        else:
+            decoded = 'Wild (play {})'.format(color)
     elif card[1] == 'f':
-        color, number = 'Wild', ' Draw 4'
+        if color == '':
+            decoded = 'Wild Draw 4'
+        else:
+            decoded = 'Wild Draw 4 (play {})'.format(color)
     else:
-        number = ' ' + card[1]
-    return color + number
+        decoded = color + ' ' + card[1]
+    return decoded
 
 
 def readout(hand):
-    readout = ''
+    output = ''
     count = 2
     for card in hand:
         english = decode(card)
-        readout += english
+        output += english
         if count < len(hand):
-            readout += ', '
+            output += ', '
         elif count == len(hand):
-            readout += ', and '
+            output += ', and '
         count += 1
-    return readout
+    return output
 
 
 def is_legal(card1, card2):  # card1 is the card we are checking legality on, card2 is what we're checking against.
@@ -58,6 +69,21 @@ def is_legal(card1, card2):  # card1 is the card we are checking legality on, ca
         return True
     else:
         return False
+
+
+def read_last(card, wild):
+    if wild == '':
+        print('Last card played was a {}.'.format(decode(card)))
+    else:
+        print('Last card played was a {} (play {}).'.format(decode(card), decode_color(wild)))
+
+
+def admonish(card1, card2, wild):
+    if wild == '':
+        print('You can\'t play a {} on a {}!'.format(card1, card2))
+    else:
+        print('You can\'t play a {} on a {} Wild card!'.format(card1, decode_color(wild)))
+
 
 print(is_legal('ww', 'y3'))
 
