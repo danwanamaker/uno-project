@@ -3,6 +3,20 @@ import hand_functions as hf
 import player_functions as pf
 
 
+class Token:
+    def __init__(self):
+        self.count = 0
+        self.last_card = ''
+        self.is_reversed = False
+        self.is_skipped = False
+        self.is_draw_two = False
+        self.is_draw_four = False
+        self.wild_color = ''
+
+    def __str__(self):
+        return 'Player ' + str(len(players)) + ': ' + players[self.count].name + ' is up!'
+
+
 def token_increment(num):
     if num == len(players) - 1:
         num = 0
@@ -15,9 +29,12 @@ def token_increment(num):
 players = [pf.Player(1, 'Dan'), pf.Player(2, 'Ethan'), pf.Player(3, 'Holton')]  # placeholder players
 # players = pf.setup_players()  # actual player constructor
 token = 0
+my_token = Token()
 last_card = df.choose_card()
 while last_card[0] == 'w':  # So that we don't start the game with a Wild card.
     last_card = df.choose_card()
+
+print(my_token)
 
 # GAMEPLAY LOOP
 while True:
@@ -41,7 +58,7 @@ while True:
             chosen_index = int(input('--> ')) - 1
             chosen_card = players[token].hand[chosen_index]
             if not hf.is_legal(chosen_card, last_card):
-                print('You can\'t play a {} on a {}!'.format(chosen_card, last_card))
+                print('You can\'t play a {} on a {}!'.format(hf.decode(chosen_card), hf.decode(last_card)))
             else:
                 print('You played: ' + hf.decode(chosen_card))
                 last_card = chosen_card
