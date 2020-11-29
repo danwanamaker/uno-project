@@ -13,7 +13,7 @@ class Token:
         self.is_first_reversed = False
         self.is_reversed = False
         self.is_skipped = False
-        self.skip_after_draw = self.draw_rules()
+        self.skip_after_draw = hf.draw_rules()
 
     def __str__(self):
         return 'Player ' + str(len(players)) + ': ' + players[self.count].name + ' is up!'
@@ -35,22 +35,6 @@ class Token:
             self.is_reversed = False
         else:
             self.is_reversed = True
-
-    def draw_rules(self):
-        print('House rule: How should drawing work?')
-        print('  1. Keep drawing until you get a card you can play')
-        print('  2. Draw one card and your turn is over')
-        rule = input('--> ')
-        while True:
-            if rule == '1':
-                print()
-                return False
-            elif rule == '2':
-                print()
-                return True
-            else:
-                print('Please choose one of the two house rules.')
-                rule = input('--> ')
 
 
 # SETUP
@@ -96,6 +80,7 @@ while not token.game_over:
                     break
                 print('Last card played was a {}.'.format(hf.decode(token.last_card)))
             elif prompt == '2':  # Play a card
+                print('Last card played was a {}.'.format(hf.decode(token.last_card)))
                 choice = players[token.count].play_card()
                 if choice == -1:  # If they enter 0, this brings them back to the Turn Loop.
                     continue
@@ -123,14 +108,35 @@ while not token.game_over:
                     df.premade_deck.append(chosen_card)  # Discard the played card and return it to the deck.
                     players[token.count].holding(now=True)
                     ending = input('Type "end" to end your turn. --> ')
-                    if ending.lower() == 'uno':
-                        print(players[token.count].name + ' declares UNO! Watch out!')
+                    if len(players[token.count].hand) == 1:
+                        if ending.lower().strip() == 'uno':
+                            print(players[token.count].name + ' declares UNO! Watch out!')
+                        else:
+                            print('You forgot to declare Uno, you fool! Draw 2 and try not to forget next time.')
+                            players[token.count].draw_two()
+                    else:
+                        if ending.lower().strip() == 'uno' and len(players[token.count].hand) > 1:
+                            print('You wish you had Uno. Come back another time when you\'re not trippin.')
+                    if len(players[token.count].hand) == 0:
+                        token.game_over = True
                     print()
                     break
             elif prompt == 'done':  # End turn
+                print()
                 break
             elif prompt == 'exit':
                 break
+    if token.game_over:
+        break
     if prompt == 'exit':
         break
     token.increment()
+
+if token.game_over:
+    print('Congratulations {}!! You are UNO champion of the day!'.format(players[token.count].name))
+    for player in players:
+        if player.name == players[token.count].name:
+            continue
+        print(player.name, end=', ')
+    print('better luck next time!')
+

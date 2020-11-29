@@ -24,7 +24,7 @@ def construct_hand():
 def decode(card):
     color = decode_color(card)
     decoded = ''
-    if card[1] == 'r':  # Generate the second part.
+    if card[1] == 'r':  # Generate the second part of the English name of the card.
         decoded = color + ' Reverse'
     elif card[1] == 'd':
         decoded = color + ' Draw 2'
@@ -56,6 +56,23 @@ def decode_color(card):
     elif card[0] == 'b':
         color = 'Blue'
     return color
+
+
+def draw_rules():
+    print('House rule: How should drawing work?')
+    print('  1. Keep drawing until you get a card you can play')
+    print('  2. Draw one card and your turn is over')
+    rule = input('--> ')
+    while True:
+        if rule == '1':
+            print()
+            return False
+        elif rule == '2':
+            print()
+            return True
+        else:
+            print('Please choose one of the two house rules.')
+            rule = input('--> ')
 
 
 def is_legal(card1, card2):  # card1 is the card we are checking legality on, card2 is what we're checking against.
