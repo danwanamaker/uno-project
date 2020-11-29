@@ -17,7 +17,13 @@ def construct_deck():
 
 
 master_deck = construct_deck()
-premade_deck = ['r0', 'y0', 'g0', 'b0', 'r1', 'r2', 'r3', 'r4', 'r5', 'r6', 'r7', 'r8', 'r9', 'rs', 'rr', 'rd', 'y1', 'y2', 'y3', 'y4', 'y5', 'y6', 'y7', 'y8', 'y9', 'ys', 'yr', 'yd', 'g1', 'g2', 'g3', 'g4', 'g5', 'g6', 'g7', 'g8', 'g9', 'gs', 'gr', 'gd', 'b1', 'b2', 'b3', 'b4', 'b5', 'b6', 'b7', 'b8', 'b9', 'bs', 'br', 'bd', 'r1', 'r2', 'r3', 'r4', 'r5', 'r6', 'r7', 'r8', 'r9', 'rs', 'rr', 'rd', 'y1', 'y2', 'y3', 'y4', 'y5', 'y6', 'y7', 'y8', 'y9', 'ys', 'yr', 'yd', 'g1', 'g2', 'g3', 'g4', 'g5', 'g6', 'g7', 'g8', 'g9', 'gs', 'gr', 'gd', 'b1', 'b2', 'b3', 'b4', 'b5', 'b6', 'b7', 'b8', 'b9', 'bs', 'br', 'bd', 'ww', 'wf', 'ww', 'wf', 'ww', 'wf', 'ww', 'wf']
+premade_deck = ['r0', 'y0', 'g0', 'b0', 'r1', 'r2', 'r3', 'r4', 'r5', 'r6', 'r7', 'r8', 'r9', 'rs', 'rr', 'rd',
+                'y1', 'y2', 'y3', 'y4', 'y5', 'y6', 'y7', 'y8', 'y9', 'ys', 'yr', 'yd', 'g1', 'g2', 'g3', 'g4',
+                'g5', 'g6', 'g7', 'g8', 'g9', 'gs', 'gr', 'gd', 'b1', 'b2', 'b3', 'b4', 'b5', 'b6', 'b7', 'b8',
+                'b9', 'bs', 'br', 'bd', 'r1', 'r2', 'r3', 'r4', 'r5', 'r6', 'r7', 'r8', 'r9', 'rs', 'rr', 'rd',
+                'y1', 'y2', 'y3', 'y4', 'y5', 'y6', 'y7', 'y8', 'y9', 'ys', 'yr', 'yd', 'g1', 'g2', 'g3', 'g4',
+                'g5', 'g6', 'g7', 'g8', 'g9', 'gs', 'gr', 'gd', 'b1', 'b2', 'b3', 'b4', 'b5', 'b6', 'b7', 'b8',
+                'b9', 'bs', 'br', 'bd', 'ww', 'wf', 'ww', 'wf', 'ww', 'wf', 'ww', 'wf']
 
 
 def choose_card():
@@ -37,5 +43,3 @@ if __name__ == '__main__':
     print(my_hand)
     my_hand.append(choose_card())
     print(my_hand, len(premade_deck))
-
-

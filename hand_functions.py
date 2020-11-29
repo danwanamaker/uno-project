@@ -23,7 +23,6 @@ def construct_hand():
 
 def decode(card):
     color = decode_color(card)
-    decoded = ''
     if card[1] == 'r':  # Generate the second part of the English name of the card.
         decoded = color + ' Reverse'
     elif card[1] == 'd':
@@ -60,8 +59,8 @@ def decode_color(card):
 
 def draw_rules():
     print('House rule: How should drawing work?')
-    print('  1. Keep drawing until you get a card you can play')
-    print('  2. Draw one card and your turn is over')
+    print('  1. Keep drawing until you get a card you can play.')
+    print('  2. Draw one card and your turn is over.')
     rule = input('--> ')
     while True:
         if rule == '1':
@@ -98,6 +97,23 @@ def readout(hand):
             output += ', and '
         count += 1
     return output
+
+
+def skip_rules():
+    print('House rule: Someone plays a Draw 2 or Draw 4 on you. What happens next?')
+    print('  1. You Draw 2 or Draw 4, and then go ahead with your turn like normal.')
+    print('  2. You Draw 2 or Draw 4, and then your turn ends.')
+    rule = input('--> ')
+    while True:
+        if rule == '1':
+            print()
+            return False
+        elif rule == '2':
+            print()
+            return True
+        else:
+            print('Please choose one of the two house rules.')
+            rule = input('--> ')
 
 
 # def read_last(card, wild):

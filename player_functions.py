@@ -43,7 +43,7 @@ class Player:
         print('Draw 2! You drew: {} and {}.'.format(hf.decode(new_cards[0]), hf.decode(new_cards[1])))
         self.hand.extend(new_cards)
         self.hand.sort()
-        print('You\'re now holding: ' + self.display_hand() + '.')
+        # self.now_holding()
 
     def draw_four(self):
         new_cards = []
@@ -52,13 +52,13 @@ class Player:
         print('Draw 4! You drew: ' + hf.readout(new_cards))
         self.hand.extend(new_cards)
         self.hand.sort()
-        print('You\'re now holding: ' + self.display_hand() + '.')
+        # self.now_holding()
 
-    def holding(self, now=False):
-        now_string = ''
-        if now:
-            now_string = 'now '
-        print('You\'re {}holding: {}.'.format(now_string, self.display_hand()))
+    def holding(self):
+        print('You\'re holding: {}.'.format(self.display_hand()))
+
+    def now_holding(self):
+        print('You\'re now holding: {}.'.format(self.display_hand()))
 
     def list_hand(self):
         i = 1
@@ -67,9 +67,15 @@ class Player:
             i += 1
 
     def play_card(self):
-        print('Choose a card (or enter 0 to go back):')
+        print('Choose a card to play (or enter 0 to draw a card):')
         self.list_hand()
         chosen_index = int(input('--> ')) - 1
+        while True:
+            if chosen_index in range(-1, len(self.hand)):
+                break
+            else:
+                print('Please choose a valid card.')
+                chosen_index = int(input('--> ')) -1
         return chosen_index
 
 
@@ -77,7 +83,7 @@ def setup_players():  # Gets names of players and returns them in a list.
     players_list = []
     num_players = 1
     while True:
-        print('Enter player {}\'s name or type "done" if all players are entered: ' \
+        print('Enter player {}\'s name or type "done" if all players are entered: '
               .format(num_players), end='')
         player_name = input()
         if player_name == 'done':
