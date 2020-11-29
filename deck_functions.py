@@ -22,6 +22,7 @@ premade_deck = ['r0', 'y0', 'g0', 'b0', 'r1', 'r2', 'r3', 'r4', 'r5', 'r6', 'r7'
 
 def choose_card():
     card = random.choice(premade_deck)
+    premade_deck.remove(card)
     return card
 
 
@@ -31,3 +32,10 @@ if __name__ == '__main__':
     print(len(premade_deck))
     print(random.random())
     print(choose_card())
+    print(len(premade_deck))
+    my_hand = ['b3', 'y4', 'g5']
+    print(my_hand)
+    my_hand.append(choose_card())
+    print(my_hand, len(premade_deck))
+
+

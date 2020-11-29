@@ -13,16 +13,6 @@ class Player:
     def __str__(self):
         return 'Player ' + str(self.number) + ': ' + self.name + ' holding ' + str(len(self.hand)) + ' cards'
 
-    def draw_card(self, read=False):
-        output_hand = self.hand.copy()
-        self.new_card = df.choose_card()
-        if read:
-            print('You drew a {}.'.format(hf.decode(self.new_card)))
-        output_hand.append(self.new_card)
-        output_hand.sort()
-        self.new_card = hf.decode(self.new_card)
-        self.hand = output_hand
-
     def display_hand(self):
         readout = ''
         count = 2
@@ -35,6 +25,16 @@ class Player:
                 readout += ', and '
             count += 1
         return readout
+
+    def draw_card(self, read=False):
+        output_hand = self.hand.copy()
+        self.new_card = df.choose_card()
+        if read:
+            print('You drew a {}.'.format(hf.decode(self.new_card)))
+        output_hand.append(self.new_card)
+        output_hand.sort()
+        self.new_card = hf.decode(self.new_card)
+        self.hand = output_hand
 
     def draw_two(self):
         new_cards = []
