@@ -69,14 +69,52 @@ class Player:
     def play_card(self):
         print('Choose a card to play (or enter 0 to draw a card):')
         self.list_hand()
-        chosen_index = int(input('--> ')) - 1
+        while True:
+            try:
+                chosen_index = int(input('--> ')) - 1
+            except ValueError:
+                print('Please choose a valid card. ', end='')
+                continue
+            else:
+                break
+        # chosen_index = int(input('--> ')) - 1
         while True:
             if chosen_index in range(-1, len(self.hand)):
                 break
             else:
                 print('Please choose a valid card.')
-                chosen_index = int(input('--> ')) -1
+                chosen_index = int(input('--> ')) - 1
         return chosen_index
+
+
+class Token:
+    def __init__(self, list_of_players):
+        self.count = 0
+        self.draw_one_rule = hf.draw_rules()
+        self.game_over = False
+        self.last_card = ''
+        self.is_draw_four = False
+        self.is_draw_two = False
+        self.is_first_reversed = False
+        self.is_reversed = False
+        self.is_skipped = False
+        self.list_players = list_of_players
+        self.skip_after_draw = hf.skip_rules()
+
+    def __str__(self):
+        return 'Player ' + str(len(self.list_players)) + ': ' + self.list_players[self.count].name + ' is up!'
+
+    def increment(self):
+        if not self.is_reversed:  # For normal play, go to next player in the list
+            if self.count == len(self.list_players) - 1:  # Unless you're at the end of the list
+                self.count = 0  # In which case you start over
+            else:
+                self.count += 1
+        else:  # If play is reversed, go backwards unless you are at the start of the list.
+            if self.count == 0:
+                self.count = len(self.list_players) - 1
+            else:
+                self.count -= 1
 
 
 def setup_players():  # Gets names of players and returns them in a list.
