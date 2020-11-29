@@ -114,18 +114,3 @@ def skip_rules():
         else:
             print('Please choose one of the two house rules.')
             rule = input('--> ')
-
-
-# def read_last(card, wild):
-#     if wild == '':
-#         print('Last card played was a {}.'.format(decode(card)))
-#     else:
-#         print('Last card played was a {} (play {}).'.format(decode(card), decode_color(wild)))
-
-
-# def draw_card(hand):
-#     output_hand = hand.copy()
-#     card_to_add = df.choose_card()
-#     output_hand.append(card_to_add)
-#     return output_hand
-# moved to a method in Player class

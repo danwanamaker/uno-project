@@ -3,45 +3,10 @@ import hand_functions as hf
 import player_functions as pf
 
 
-class Token:
-    def __init__(self):
-        self.count = 0
-        self.draw_one_rule = hf.draw_rules()
-        self.game_over = False
-        self.last_card = ''
-        self.is_draw_four = False
-        self.is_draw_two = False
-        self.is_first_reversed = False
-        self.is_reversed = False
-        self.is_skipped = False
-        self.skip_after_draw = hf.skip_rules()
-
-    def __str__(self):
-        return 'Player ' + str(len(players)) + ': ' + players[self.count].name + ' is up!'
-
-    def increment(self):
-        if not self.is_reversed:
-            if self.count == len(players) - 1:
-                self.count = 0
-            else:
-                self.count += 1
-        else:
-            if self.count == 0:
-                self.count = len(players) - 1
-            else:
-                self.count -= 1
-
-    # def reverse(self):
-    #     if self.is_reversed:
-    #         self.is_reversed = False
-    #     else:
-    #         self.is_reversed = True
-
-
 # SETUP
 players = [pf.Player(1, 'Dan'), pf.Player(2, 'Ethan'), pf.Player(3, 'Holton')]  # placeholder players
 # players = pf.setup_players()  # actual player constructor
-token = Token()
+token = pf.Token(players)
 token.last_card = df.choose_card()
 while token.last_card[0] == 'w' or token.last_card[1] == 'd' or token.last_card[1] == 's' or token.last_card[1] == 'r':
     df.premade_deck.append(token.last_card)
@@ -62,48 +27,31 @@ while not token.game_over:
             token.is_first_reversed = False  # Make it so it doesn't do that again.
         else:
             print('Player {}: {} you\'re up!'.format(token.count + 1, players[token.count].name))
-        # else:
-        #     players[token.count].holding()
-        # print('Last card played was a {}.'.format(hf.decode(token.last_card)))
 
         # ONE PLAYER'S TURN LOOP
         while True:
             if token.is_draw_two:
-                print()
                 players[token.count].draw_two()
                 token.is_draw_two = False
                 if token.skip_after_draw:
                     print('That\'s all for now. Next!\n')
                     break
             elif token.is_draw_four:
-                print()
                 players[token.count].draw_four()
                 token.is_draw_four = False
                 if token.skip_after_draw:
                     print('That\'s all for now. Next!\n')
                     break
             print('What would you like to do?')
-            # print('  1. Draw a card\n  2. Play a card\n--> ', end='')
-            # prompt = input()
-            # if prompt == '1':  # Draw a card
-                # players[token.count].draw_card(read=True)
-                # players[token.count].now_holding()
-                # if token.skip_after_draw:  # When house rule is active, one card only draw and turn is over.
-                #     print()
-                #     break
-                # print('Last card played was a {}.'.format(hf.decode(token.last_card)))
-            # elif prompt == '2':  # Play a card
             print('Last card played was a {}.'.format(hf.decode(token.last_card)))
             choice = players[token.count].play_card()
             if choice == -1:  # If they enter 0, this brings them back to the Turn Loop.
                 players[token.count].draw_card(read=True)
-                # players[token.count].now_holding()
                 if token.draw_one_rule:  # When house rule is active, one card only draw and turn is over.
                     print()
                     break
                 else:
                     continue
-                # print('Last card played was a {}.'.format(hf.decode(token.last_card)))
             chosen_card = players[token.count].hand[choice]  # Retrieve the card from their hand.
             if not hf.is_legal(chosen_card, token.last_card):  # Check that it's a legal play.
                 hf.admonish(chosen_card, token.last_card)
