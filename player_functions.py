@@ -1,5 +1,7 @@
+from tkinter import simpledialog
 import deck_functions as df
 import hand_functions as hf
+import tkinter
 
 
 class Player:
@@ -121,12 +123,16 @@ def setup_players():  # Gets names of players and returns them in a list.
     players_list = []
     num_players = 1
     while True:
-        print('Enter player {}\'s name or type "done" if all players are entered: '
-              .format(num_players), end='')
-        player_name = input()
+        player_name = simpledialog.askstring('Enter name',
+                'Enter Player {}\'s name (or type "done" if all players are entered):'.format(num_players))
+        # print('Enter player {}\'s name or type "done" if all players are entered: '
+        #       .format(num_players), end='')
+        # player_name = input()
         if player_name == 'done':
             break
         else:
             players_list.append(Player(num_players, player_name))
         num_players += 1
+    for player in players_list:
+        print(player)
     return players_list

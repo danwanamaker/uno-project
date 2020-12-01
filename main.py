@@ -1,11 +1,14 @@
+from tkinter import simpledialog
 import deck_functions as df
 import hand_functions as hf
 import player_functions as pf
+import tkinter
 
 
 # SETUP
-players = [pf.Player(1, 'Dan'), pf.Player(2, 'Ethan'), pf.Player(3, 'Holton')]  # placeholder players
-# players = pf.setup_players()  # actual player constructor
+# players = [pf.Player(1, 'Dan'), pf.Player(2, 'Ethan'), pf.Player(3, 'Holton')]  # placeholder players
+root = tkinter.Tk()
+players = pf.setup_players()  # actual player constructor
 token = pf.Token(players)
 token.last_card = df.choose_card()
 while token.last_card[0] == 'w' or token.last_card[1] == 'd' or token.last_card[1] == 's' or token.last_card[1] == 'r':
