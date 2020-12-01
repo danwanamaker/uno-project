@@ -1,0 +1,40 @@
+from tkinter import *
+import tkinter as tk
+
+HEIGHT = 700
+WIDTH = 800
+
+class MyApp:
+    def __init__(self, myParent):
+        self.canvas = tk.Canvas(root, height=HEIGHT, width=WIDTH)
+        self.canvas.pack()
+        self.frame = tk.Frame(root, bg='red', bd=5)
+        self.frame.place(relx=0.5, rely=0.1, relwidth=0.75, relheight=0.1, anchor='n')
+        self.button = Button(self.frame, command=self.open_window)
+        self.button["text"]="Start!"
+        self.button["foreground"]="black"
+        self.button["background"]="white"
+        self.button.place(relx=0.7, relheight=1, relwidth=0.3)
+        self.entry = Entry(self.frame, bg='white', font=40)
+        self.entry["background"]='white'
+        self.entry["font"]=40
+        self.entry.place(relwidth=0.65, relheight=1) 
+        self.lower_frame = tk.Frame(root, bg='red', bd=10)
+        self.lower_frame.place(relx=0.5, rely=0.25, relwidth=0.75, relheight=0.6, anchor='n')
+        self.label = Label(self.lower_frame)
+        self.label["background"]='white'
+        self.label.place(relwidth=1, relheight=1)
+        
+    def open_window(self):
+        top = tk.Toplevel()
+        self.canvas = tk.Canvas(top, height=HEIGHT, width=WIDTH)
+        self.canvas.pack()  
+        self.lower_frame = tk.Frame(top, bg='red', bd=10)
+        self.lower_frame.place(relx=0.5, rely=0.25, relwidth=0.75, relheight=0.6, anchor='n')
+        self.label = Label(self.lower_frame)
+        self.label["background"]='white'
+        self.label.place(relwidth=1, relheight=1)
+        
+        root = tk.Tk()
+        myapp = MyApp(root)
+        root.mainloop()
